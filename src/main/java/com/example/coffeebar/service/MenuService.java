@@ -59,4 +59,12 @@ public class MenuService {
     public Desert findByIdDesert(Long idDesert) {
         return desertRepository.findById(idDesert).orElse(new Desert());
     }
+
+    public void deleteByIdDrink(Long idDrink) {
+        drinkRepository.deleteById(idDrink);
+    }
+    public void deleteByIdDesert(Long idDesert) {
+        desertRepository.deleteById(idDesert);
+    }
+
 }

@@ -16,6 +16,7 @@
         <th>Address</th>
         <th>Discount</th>
         <th>Update</th>
+        <th>Delete</th>
     </tr>
     <tr th:each="client: ${clients}">
         <td th:text="${client.getName()}"></td>
@@ -25,6 +26,8 @@
         <td th:text="${client.getDiscount()}"></td>
 
         <td><a th:href="@{/client/update/{id}(id=${client.getIdClient()})}">Update</a></td>
+        <td><a th:href="@{/client/delete/{id}(id=${client.getIdClient()})}">Delete</a></td>
+
     </tr>
 </table>
 </body>

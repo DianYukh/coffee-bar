@@ -2,6 +2,7 @@ package com.example.coffeebar.service;
 
 import com.example.coffeebar.entity.Client;
 import com.example.coffeebar.repository.ClientRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +32,9 @@ public class ClientService {
 
     public Client findById(Long idClient) {
         return clientRepository.findById(idClient).orElse(new Client());
+    }
+    
+    public void deleteClientById(Long idClient) {
+        clientRepository.deleteById(idClient);
     }
 }

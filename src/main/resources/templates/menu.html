@@ -17,12 +17,14 @@
         <th>Name en</th>
         <th>Price</th>
         <th>Update</th>
+        <th>Delete</th>
     </tr>
     <tr th:each="drink: ${drinks}">
         <td th:text="${drink.getNameUa()}"></td>
         <td th:text="${drink.getNameEn()}"></td>
         <td th:text="${drink.getPrice}"></td>
         <td><a th:href="@{/drink/updateDrink/{id}(id=${drink.getIdDrink()})}">Update</a></td>
+        <td><a th:href="@{/drink/delete/{id}(id=${drink.getIdDrink()})}">Delete</a></td>
     </tr>
 </table>
 
@@ -33,12 +35,14 @@
         <th>Name en</th>
         <th>Price</th>
         <th>Update</th>
+        <th>Delete</th>
     </tr>
     <tr th:each="desert: ${deserts}">
         <td th:text="${desert.getNameUa()}"></td>
         <td th:text="${desert.getNameEn()}"></td>
         <td th:text="${desert.getPrice()}"></td>
         <td><a th:href="@{/desert/updateDesert/{id}(id=${desert.getIdDesert()})}">Update</a></td>
+        <td><a th:href="@{/desert/delete/{id}(id=${desert.getIdDesert()})}">Delete</a></td>
     </tr>
 </table>
 

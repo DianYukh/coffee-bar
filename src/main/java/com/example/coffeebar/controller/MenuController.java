@@ -68,6 +68,14 @@ public class MenuController {
         model.addAttribute("desert", desertById);
         return "add-desert";
     }
-
-
+    @GetMapping("/drink/delete/{idDrink}")
+    public String deleteDrink(@PathVariable Long idDrink) {
+        menuService.deleteByIdDrink(idDrink);
+        return "redirect:/menu";
+    }
+    @GetMapping("/desert/delete/{idDesert}")
+    public String deleteDesert(@PathVariable Long idDesert) {
+        menuService.deleteByIdDesert(idDesert);
+        return "redirect:/menu";
+    }
 }
