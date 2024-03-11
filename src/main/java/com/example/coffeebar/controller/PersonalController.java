@@ -1,16 +1,13 @@
 package com.example.coffeebar.controller;
 
 
+import com.example.coffeebar.entity.Desert;
 import com.example.coffeebar.entity.Personal;
-import com.example.coffeebar.entity.Position;
 import com.example.coffeebar.service.PersonalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PersonalController {
@@ -24,6 +21,12 @@ public class PersonalController {
         this.personalService = personalService;
     }
 
+
+    @GetMapping("/personal/all")
+    public String getAllPersonal(Model model) {
+        model.addAttribute("personals", personalService.getAllPersonal());
+        return "personals";
+    }
 
     @GetMapping("/personal/add")
     public String add(Model model) {
@@ -62,7 +65,7 @@ public class PersonalController {
             return "add-personal";
         }
         personalService.save(personal, idPosition);
-        return "index";
+        return "redirect:/personal/all";
     }
 
 
@@ -72,5 +75,16 @@ public class PersonalController {
         model.addAttribute("personals", personalService.getAllGraphics());
         return "personal_graphic";
     }
+
+    @GetMapping("/personal/update/{id}")
+    public String update(@PathVariable(name = "id") Long idPersonal,
+                         Model model) {
+        Personal personalById = personalService.findById(idPersonal);
+        model.addAttribute("personal", personalById);
+        model.addAttribute("positions", personalService.getAllPositions());
+        return "add-personal";
+    }
+
+
 
 }

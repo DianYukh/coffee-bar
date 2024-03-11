@@ -1,79 +1,39 @@
 package com.example.coffeebar.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
-public class Drinks {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+@Component
+@Table(name = "drinks")
+public class Drink {
+
     @Id
-    @jakarta.persistence.Column(name = "id_drinks")
-    private int idDrinks;
-
-    public int getIdDrinks() {
-        return idDrinks;
-    }
-
-    public void setIdDrinks(int idDrinks) {
-        this.idDrinks = idDrinks;
-    }
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_drinks", nullable = false)
+    private Integer idDrink;
 
     @Basic
-    @Column(name = "name_ua")
+    @Column(name = "name_ua", nullable = true, length = 255)
     private String nameUa;
 
-    public String getNameUa() {
-        return nameUa;
-    }
-
-    public void setNameUa(String nameUa) {
-        this.nameUa = nameUa;
-    }
-
     @Basic
-    @Column(name = "name_en")
+    @Column(name = "name_en", nullable = true, length = 255)
     private String nameEn;
 
-    public String getNameEn() {
-        return nameEn;
-    }
-
-    public void setNameEn(String nameEn) {
-        this.nameEn = nameEn;
-    }
-
     @Basic
-    @Column(name = "price")
-    private int price;
+    @Column(name = "price", nullable = false, precision = 2)
+    private BigDecimal price;
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Drinks drinks = (Drinks) o;
-
-        if (idDrinks != drinks.idDrinks) return false;
-        if (price != drinks.price) return false;
-        if (nameUa != null ? !nameUa.equals(drinks.nameUa) : drinks.nameUa != null) return false;
-        if (nameEn != null ? !nameEn.equals(drinks.nameEn) : drinks.nameEn != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idDrinks;
-        result = 31 * result + (nameUa != null ? nameUa.hashCode() : 0);
-        result = 31 * result + (nameEn != null ? nameEn.hashCode() : 0);
-        result = 31 * result + price;
-        return result;
-    }
+    @ManyToMany(mappedBy = "drinkSet")
+    Set<Order> orderSet;
 }

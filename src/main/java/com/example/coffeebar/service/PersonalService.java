@@ -1,6 +1,7 @@
 package com.example.coffeebar.service;
 
 
+import com.example.coffeebar.entity.Client;
 import com.example.coffeebar.entity.Graphic;
 import com.example.coffeebar.entity.Personal;
 import com.example.coffeebar.entity.Position;
@@ -47,6 +48,9 @@ public class PersonalService {
         return positionRepository.findById(idPosition).get();
     }
 
+    public Personal getIdPersonal(Long idPersonal) {
+        return personalRepository.findById(idPersonal).get();
+    }
 
     public void save(Personal personal, Long idPosition) {
         personal.setPosition(getPositionById(idPosition));
@@ -64,5 +68,9 @@ public class PersonalService {
 
     public List<Graphic> getAllGraphics() {
         return graphicRepository.findAll();
+    }
+
+    public Personal findById(Long idPersonal) {
+        return personalRepository.findById(idPersonal).orElse(new Personal());
     }
 }

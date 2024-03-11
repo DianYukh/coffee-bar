@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Menu</title>
 </head>
 <body>
-$END$
+<h2>Menu</h2>
+
+
+
+<h4><u>Drink Menu</u></h4>
+<table>
+    <tr>
+        <th>Name ua</th>
+        <th>Name en</th>
+        <th>Price</th>
+        <th>Update</th>
+    </tr>
+    <tr th:each="drink: ${drinks}">
+        <td th:text="${drink.getNameUa()}"></td>
+        <td th:text="${drink.getNameEn()}"></td>
+        <td th:text="${drink.getPrice}"></td>
+        <td><a th:href="@{/drink/updateDrink/{id}(id=${drink.getIdDrink()})}">Update</a></td>
+    </tr>
+</table>
+
+<h4><u>Desert Menu</u></h4>
+<table>
+    <tr>
+        <th>Name ua</th>
+        <th>Name en</th>
+        <th>Price</th>
+        <th>Update</th>
+    </tr>
+    <tr th:each="desert: ${deserts}">
+        <td th:text="${desert.getNameUa()}"></td>
+        <td th:text="${desert.getNameEn()}"></td>
+        <td th:text="${desert.getPrice()}"></td>
+        <td><a th:href="@{/desert/updateDesert/{id}(id=${desert.getIdDesert()})}">Update</a></td>
+    </tr>
+</table>
+
+<br>
+
+<a href="/drink/add">Add New Drink</a><br>
+<a href="/desert/add">Add New Desert</a><br>
 </body>
 </html>

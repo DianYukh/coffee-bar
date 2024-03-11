@@ -2,7 +2,6 @@ package com.example.coffeebar.controller;
 
 
 import com.example.coffeebar.entity.Client;
-import com.example.coffeebar.repository.ClientRepository;
 import com.example.coffeebar.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

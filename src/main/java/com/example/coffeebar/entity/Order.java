@@ -1,65 +1,55 @@
 package com.example.coffeebar.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.stereotype.Component;
+
+import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+@Table(name = "orders")
+@Component
 public class Order {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
     @Id
-    @jakarta.persistence.Column(name = "id_order")
-    private int idOrder;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_orders", nullable = false)
+    private Long idOrder;
 
-    public int getIdOrder() {
-        return idOrder;
-    }
 
-    public void setIdOrder(int idOrder) {
-        this.idOrder = idOrder;
-    }
+//    @Basic
+//    @Column(name = "order_date", nullable = false)
+//    private Timestamp orderDate;
 
-    @Basic
-    @Column(name = "personal_id")
-    private int personalId;
+    @ManyToOne
+    @JoinColumn(name = "personal_id", nullable = false)
+    private Personal personal;
 
-    public int getPersonalId() {
-        return personalId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
 
-    public void setPersonalId(int personalId) {
-        this.personalId = personalId;
-    }
 
-    @Basic
-    @Column(name = "client_id")
-    private int clientId;
+    @ManyToMany
+    @JoinTable(
+            name = "orders_deserts",
+            joinColumns = @JoinColumn(name = "orders_id"),
+            inverseJoinColumns = @JoinColumn(name = "deset_id"))
+    private Set<Desert> desertSet;
 
-    public int getClientId() {
-        return clientId;
-    }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "orders_drinks",
+            joinColumns = @JoinColumn(name = "orders_id"),
+            inverseJoinColumns = @JoinColumn(name = "drinks_id"))
+    private Set<Drink> drinkSet;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Order order = (Order) o;
-
-        if (idOrder != order.idOrder) return false;
-        if (personalId != order.personalId) return false;
-        if (clientId != order.clientId) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idOrder;
-        result = 31 * result + personalId;
-        result = 31 * result + clientId;
-        return result;
-    }
 }

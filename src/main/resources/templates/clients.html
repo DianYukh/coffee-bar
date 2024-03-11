@@ -14,6 +14,7 @@
         <th>Phone</th>
         <th>Birthday</th>
         <th>Address</th>
+        <th>Discount</th>
         <th>Update</th>
     </tr>
     <tr th:each="client: ${clients}">
@@ -21,6 +22,8 @@
         <td th:text="${client.getPhone()}"></td>
         <td th:text="${client.getBirthday()}"></td>
         <td th:text="${client.getAddress()}"></td>
+        <td th:text="${client.getDiscount()}"></td>
+
         <td><a th:href="@{/client/update/{id}(id=${client.getIdClient()})}">Update</a></td>
     </tr>
 </table>

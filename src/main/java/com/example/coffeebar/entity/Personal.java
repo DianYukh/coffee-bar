@@ -19,20 +19,22 @@ public class Personal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_personal")
-    Long idPersonal;
+    private Long idPersonal;
 
-    String name;
+    private String name;
 
-    String phone;
+    @Column(name = "phone", length = 20, unique = true)
+    private String phone;
 
-    String address;
+    @Column(name = "address", length = 255)
+    private  String address;
 
     @OneToMany(mappedBy = "personal")
-    Set<Order> orderSet;
+    private Set<Order> orderSet;
 
     @ManyToOne
     @JoinColumn(name = "position_id", nullable = false)
-    Position position;
+    private Position position;
 
     @ManyToMany
     @JoinTable(

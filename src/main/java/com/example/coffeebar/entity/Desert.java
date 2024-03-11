@@ -1,79 +1,38 @@
 package com.example.coffeebar.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
-public class Deserts {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+@Component
+@Table(name = "deserts")
+public class Desert {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @jakarta.persistence.Column(name = "id_desert")
-    private int idDesert;
-
-    public int getIdDesert() {
-        return idDesert;
-    }
-
-    public void setIdDesert(int idDesert) {
-        this.idDesert = idDesert;
-    }
+    @Column(name = "id_desert", nullable = false)
+    private Long idDesert;
 
     @Basic
-    @Column(name = "name_ua")
+    @Column(name = "name_ua", nullable = true, length = 255)
+    private String nameEn;
+    @Basic
+    @Column(name = "name_en", nullable = true, length = 255)
     private String nameUa;
 
-    public String getNameUa() {
-        return nameUa;
-    }
-
-    public void setNameUa(String nameUa) {
-        this.nameUa = nameUa;
-    }
-
     @Basic
-    @Column(name = "name_en")
-    private String nameEn;
+    @Column(name = "price", nullable = false, precision = 2)
+    private BigDecimal price;
 
-    public String getNameEn() {
-        return nameEn;
-    }
+    @ManyToMany(mappedBy = "desertSet")
+    Set<Order> orderSet;
 
-    public void setNameEn(String nameEn) {
-        this.nameEn = nameEn;
-    }
-
-    @Basic
-    @Column(name = "price")
-    private int price;
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Deserts deserts = (Deserts) o;
-
-        if (idDesert != deserts.idDesert) return false;
-        if (price != deserts.price) return false;
-        if (nameUa != null ? !nameUa.equals(deserts.nameUa) : deserts.nameUa != null) return false;
-        if (nameEn != null ? !nameEn.equals(deserts.nameEn) : deserts.nameEn != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idDesert;
-        result = 31 * result + (nameUa != null ? nameUa.hashCode() : 0);
-        result = 31 * result + (nameEn != null ? nameEn.hashCode() : 0);
-        result = 31 * result + price;
-        return result;
-    }
 }

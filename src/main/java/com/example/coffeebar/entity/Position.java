@@ -21,6 +21,7 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idPosition;
 
+
     String name;
 
     @OneToMany(mappedBy = "position")
