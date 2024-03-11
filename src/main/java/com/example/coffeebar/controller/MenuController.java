@@ -1,10 +1,7 @@
 package com.example.coffeebar.controller;
 
-import com.example.coffeebar.entity.Client;
 import com.example.coffeebar.entity.Desert;
 import com.example.coffeebar.entity.Drink;
-import com.example.coffeebar.repository.DesertRepository;
-import com.example.coffeebar.repository.DrinkRepository;
 import com.example.coffeebar.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -78,4 +75,19 @@ public class MenuController {
         menuService.deleteByIdDesert(idDesert);
         return "redirect:/menu";
     }
+
+    @GetMapping("/drink/updatePrice/{idDrink}")
+    public String updatePriceDrink(@PathVariable Long idDrink, Model model) {
+        Drink drinkById = menuService.findByIdDrink(idDrink);
+        model.addAttribute("drink", drinkById);
+        return "updateDrink-price";
+    }
+
+    @GetMapping("/desert/updatePrice/{idDesert}")
+    public String updatePriceDesert(@PathVariable Long idDesert, Model model) {
+        Desert desertById = menuService.findByIdDesert(idDesert);
+        model.addAttribute("desert", desertById);
+        return "updateDesert-price";
+    }
+
 }
