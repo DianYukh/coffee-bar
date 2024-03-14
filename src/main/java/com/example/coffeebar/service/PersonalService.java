@@ -11,6 +11,8 @@ import com.example.coffeebar.repository.PositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -73,4 +75,17 @@ public class PersonalService {
     public Personal findById(Long idPersonal) {
         return personalRepository.findById(idPersonal).orElse(new Personal());
     }
+
+    public List<Personal> getPersonalByPositions(List<String> positionList) {
+
+        List<Personal> personalList = new ArrayList<>();
+
+        for (String position : positionList) {
+            personalList.addAll(personalRepository.findPersonalByPosition(position));
+        }
+        personalList.sort(Comparator.comparing(Personal::getIdPersonal));
+
+        return personalList;
+    }
+
 }

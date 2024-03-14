@@ -3,11 +3,16 @@ package com.example.coffeebar.controller;
 
 import com.example.coffeebar.entity.Desert;
 import com.example.coffeebar.entity.Personal;
+import com.example.coffeebar.entity.Position;
 import com.example.coffeebar.service.PersonalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 @Controller
 public class PersonalController {
@@ -65,7 +70,7 @@ public class PersonalController {
             return "add-personal";
         }
         personalService.save(personal, idPosition);
-        return "redirect:/personal/all";
+        return "index";
     }
 
 
@@ -74,6 +79,46 @@ public class PersonalController {
         model.addAttribute("personals", personalService.getAllPersonal());
         model.addAttribute("personals", personalService.getAllGraphics());
         return "personal_graphic";
+    }
+
+    @PostMapping("/personal/positions")
+    public String getPersonalByPositions(@RequestParam(name = "selectedPosition", required = false) List<String> positionList,
+                                         @RequestParam(name = "sort", required = false) Integer num, Model model) {
+        if (positionList != null) {
+            List<Personal> personalList = personalService.getPersonalByPositions(positionList);
+            List<Position> positions = new ArrayList<>();
+
+            for (Personal personal : personalList) {
+                positions.add(personal.getPosition());
+            }
+
+            if (num != null) {
+                switch (num) {
+                    case 1 -> personalList.sort(Comparator.comparing(Personal::getName));
+                    case 2 -> personalList.sort(Comparator.comparing(Personal::getPhone));
+                }
+            }
+            model.addAttribute("personals", personalList);
+            model.addAttribute("selectedPosition", positions);
+            model.addAttribute("selected", num);
+            model.addAttribute("positions", personalService.getAllPositions());
+
+            return "personals";
+
+        } else if (num != 0) {
+            List<Personal> personalList = personalService.getAllPersonal();
+            switch (num) {
+                case 1 -> personalList.sort(Comparator.comparing(Personal::getName));
+                case 2 -> personalList.sort(Comparator.comparing(Personal::getPhone));
+            }
+            model.addAttribute("personals", personalList);
+            model.addAttribute("selected", num);
+            model.addAttribute("positions", personalService.getAllPositions());
+
+            return "personals";
+        } else {
+            return "redirect:/personal/all";
+        }
     }
 
     @GetMapping("/personal/update/{id}")

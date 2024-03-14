@@ -6,10 +6,9 @@ import com.example.coffeebar.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 
 @Controller
 public class MenuController {
@@ -82,6 +81,24 @@ public class MenuController {
         model.addAttribute("drink", drinkById);
         return "updateDrink-price";
     }
+
+
+    @PostMapping("/drink/updatePrice/{id}")
+    public String updatePriceDrink(@PathVariable Long id, @RequestParam(name = "price") BigDecimal price) {
+        Drink byIdDrink = menuService.findByIdDrink(id);
+        byIdDrink.setPrice(price);
+        menuService.saveDrink(byIdDrink);
+        return "redirect:/menu";
+    }
+
+    @PostMapping("/desert/updatePrice/{id}")
+    public String updatePriceDesert(@PathVariable Long id, @RequestParam(name = "price") BigDecimal price) {
+        Desert byIdDesert= menuService.findByIdDesert(id);
+        byIdDesert.setPrice(price);
+        menuService.saveDesert(byIdDesert);
+        return "redirect:/menu";
+    }
+
 
     @GetMapping("/desert/updatePrice/{idDesert}")
     public String updatePriceDesert(@PathVariable Long idDesert, Model model) {

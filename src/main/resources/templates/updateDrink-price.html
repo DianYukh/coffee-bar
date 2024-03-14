@@ -1,18 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>UpdateDrink Price</title>
 </head>
 <body>
-<form action="/drink/add" method="post" th:object="${drink}">
-    <input type="text" th:field="*{idDrink}" hidden="hidden"> <br>
-    <input type="text" th:field="*{nameUa}" hidden="hidden"> <br>
-    <input type="text" th:field="*{nameEn}" hidden="hidden"><br>
-    <input type="text" th:field="*{price}" placeholder="price"><br>
-    <label th:unless="${drink.idDrink == null}">
-        <input type="submit" value="Update Price">
-    </label>
+<form th:action="@{/drink/updatePrice/{id}(id=${drink.getIdDrink()})}" method="post">
+    <input type="text" name="price" th:value="${drink.getPrice()}" placeholder="price"><br>
+    <input type="submit" value="Update Price">
 </form>
 
 </body>
