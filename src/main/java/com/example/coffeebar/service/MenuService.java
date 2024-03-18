@@ -3,12 +3,16 @@ package com.example.coffeebar.service;
 import com.example.coffeebar.entity.Client;
 import com.example.coffeebar.entity.Desert;
 import com.example.coffeebar.entity.Drink;
+import com.example.coffeebar.entity.Personal;
 import com.example.coffeebar.repository.DesertRepository;
 import com.example.coffeebar.repository.DrinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -65,6 +69,29 @@ public class MenuService {
     }
     public void deleteByIdDesert(Long idDesert) {
         desertRepository.deleteById(idDesert);
+    }
+
+
+    public List<Drink> findDrinksByNameUa(String name) {
+        return drinkRepository.findByNameUa(name);
+
+    }
+
+    public List<Drink> findDrinksByNameEN(String name) {
+        return drinkRepository.findByNameEn(name);
+
+    }
+
+
+
+    public List<Desert> findDesertByNameUa(String name) {
+        return desertRepository.findByNameUa(name);
+
+    }
+
+    public List<Desert> findDesertByNameEN(String name) {
+        return desertRepository.findByNameEn(name);
+
     }
 
 }

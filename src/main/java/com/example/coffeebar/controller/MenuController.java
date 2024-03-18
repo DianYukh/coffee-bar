@@ -2,13 +2,19 @@ package com.example.coffeebar.controller;
 
 import com.example.coffeebar.entity.Desert;
 import com.example.coffeebar.entity.Drink;
+import com.example.coffeebar.entity.Personal;
 import com.example.coffeebar.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Controller
 public class MenuController {
@@ -106,5 +112,60 @@ public class MenuController {
         model.addAttribute("desert", desertById);
         return "updateDesert-price";
     }
+
+    @PostMapping("/menu/list")
+    public String getAllByMenu(@RequestParam(name = "selectedDrinks", required = false, defaultValue = "false") boolean selectedDrinks,
+                               @RequestParam(name = "selectedDeserts", required = false, defaultValue = "false") boolean selectedDeserts,
+                               @RequestParam(name = "sort", required = false) Integer num,
+                               Model model) {
+        List<Drink> drinks = new ArrayList<>();
+        List<Desert> deserts = new ArrayList<>();
+
+        if (selectedDrinks) {
+            drinks = menuService.getAllDrinks();
+        }
+
+        if (selectedDeserts) {
+            deserts = menuService.getAllDeserts();
+        }
+
+        if (num != null) {
+            if (selectedDrinks) {
+                switch (num) {
+                    case 1:
+                        Collections.sort(drinks, Comparator.comparing(Drink::getNameUa));
+                        break;
+                    case 2:
+                        Collections.sort(drinks, Comparator.comparing(Drink::getNameEn));
+                        break;
+                    case 3:
+                        Collections.sort(drinks, Comparator.comparing(Drink::getPrice));
+                        break;
+                }
+            } else if (selectedDeserts) {
+                switch (num) {
+                    case 1:
+                        Collections.sort(deserts, Comparator.comparing(Desert::getNameUa));
+                        break;
+                    case 2:
+                        Collections.sort(deserts, Comparator.comparing(Desert::getNameEn));
+                        break;
+                    case 3:
+                        Collections.sort(deserts, Comparator.comparing(Desert::getPrice));
+                        break;
+                }
+            }
+        }
+
+        model.addAttribute("drinks", drinks);
+        model.addAttribute("deserts", deserts);
+        model.addAttribute("selectedDrinks", selectedDrinks);
+        model.addAttribute("selectedDeserts", selectedDeserts);
+        return "menu";
+    }
+
+
+
+
 
 }

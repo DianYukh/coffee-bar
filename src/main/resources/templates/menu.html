@@ -8,7 +8,21 @@
 <body>
 <h2>Menu</h2>
 
+<form action="/menu/list" method="post">
 
+    <label><input type="checkbox" name="selectedDrinks" th:checked="${selectedDrinks}" th:value="true"> Drink</label><br>
+    <label><input type="checkbox" name="selectedDeserts" th:checked="${selectedDeserts}" th:value="true"> Dessert</label><br>
+
+    <select name="sort">
+        <option value="0">Sort by</option>
+        <option value="1" th:selected="${selected==1 and selected!=null}">NameUa</option>
+        <option value="2" th:selected="${selected==2 and selected!=null}">NameEn</option>
+        <option value="3" th:selected="${selected==3 and selected!=null}">Price</option>
+
+    </select>
+    <br>
+    <input type="submit" value="Show">
+</form>
 
 <h4><u>Drink Menu</u></h4>
 <table>

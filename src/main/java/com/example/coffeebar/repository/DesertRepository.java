@@ -5,7 +5,12 @@ import com.example.coffeebar.entity.Desert;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @Repository
 public interface DesertRepository extends JpaRepository<Desert, Long> {
-
+List<Desert> findByNameUa(String name);
+List<Desert> findByNameEn(String name);
+   List<Desert> findByPrice(BigDecimal price);
 }
