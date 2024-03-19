@@ -12,7 +12,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @Table(name = "orders")
 @Component
 public class Order {
@@ -24,9 +23,9 @@ public class Order {
     private Long idOrder;
 
 
-//    @Basic
-//    @Column(name = "order_date", nullable = false)
-//    private Timestamp orderDate;
+    @Basic
+    @Column(name = "order_date", nullable = false)
+    private Timestamp orderDate;
 
     @ManyToOne
     @JoinColumn(name = "personal_id", nullable = false)
