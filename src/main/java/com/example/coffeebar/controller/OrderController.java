@@ -94,19 +94,19 @@ public class OrderController {
     }
 
 
-    @GetMapping("/order/updateDrink/{id_drink}/{id_order}")
-    public String addDrinkToOrder(@PathVariable("id_drink") Long id_drink,
-                                  @PathVariable("id_order") Long id_order) {
-        Drink drink = menuService.getDrinkById(id_drink);
-        Order order = orderService.findById(id_order);
-        Set<Drink> drinkSet = order.getDrinkSet();
-        drinkSet.add(drink);
-        order.setDrinkSet(drinkSet);
-        orderService.save(order);
-
-        Long id_client = order.getClient().getIdClient();
-        Long id_personal = order.getPersonal().getIdPersonal();
-        id_order = order.getIdOrder();
-        return "redirect:/order/add?id_client=" + id_client + "&id_personal=" + id_personal + "&id_order=" + id_order;
-    }
+//    @GetMapping("/order/updateDrink/{id_drink}/{id_order}")
+//    public String addDrinkToOrder(@PathVariable("id_drink") Long id_drink,
+//                                  @PathVariable("id_order") Long id_order) {
+//        Drink drink = menuService.getDrinkById(id_drink);
+//        Order order = orderService.findById(id_order);
+//        Set<Drink> drinkSet = order.getDrinkSet();
+//        drinkSet.add(drink);
+//        order.setDrinkSet(drinkSet);
+//        orderService.save(order);
+//
+//        Long id_client = order.getClient().getIdClient();
+//        Long id_personal = order.getPersonal().getIdPersonal();
+//        id_order = order.getIdOrder();
+//        return "redirect:/order/add?id_client=" + id_client + "&id_personal=" + id_personal + "&id_order=" + id_order;
+//    }
 }

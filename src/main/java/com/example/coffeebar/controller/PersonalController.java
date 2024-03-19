@@ -1,7 +1,6 @@
 package com.example.coffeebar.controller;
 
 
-import com.example.coffeebar.entity.Desert;
 import com.example.coffeebar.entity.Personal;
 import com.example.coffeebar.entity.Position;
 import com.example.coffeebar.service.PersonalService;
@@ -70,7 +69,7 @@ public class PersonalController {
             return "add-personal";
         }
         personalService.save(personal, idPosition);
-        return "index";
+        return "index2";
     }
 
 
