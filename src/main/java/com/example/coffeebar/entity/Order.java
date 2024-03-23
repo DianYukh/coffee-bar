@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,12 +20,12 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_orders", nullable = false)
+    @Column(name = "id_order", nullable = false)
     private Long idOrder;
 
 
     @Basic
-    @Column(name = "order_date", nullable = false)
+    @Column(name = "orders_date", nullable = false)
     private Timestamp orderDate;
 
     @ManyToOne
@@ -40,7 +41,7 @@ public class Order {
     @JoinTable(
             name = "orders_deserts",
             joinColumns = @JoinColumn(name = "orders_id"),
-            inverseJoinColumns = @JoinColumn(name = "deset_id"))
+            inverseJoinColumns = @JoinColumn(name = "desert_id"))
     private Set<Desert> desertSet;
 
 
@@ -48,7 +49,10 @@ public class Order {
     @JoinTable(
             name = "orders_drinks",
             joinColumns = @JoinColumn(name = "orders_id"),
-            inverseJoinColumns = @JoinColumn(name = "drinks_id"))
+            inverseJoinColumns = @JoinColumn(name = "drink_id"))
     private Set<Drink> drinkSet;
+
+
+
 
 }

@@ -19,22 +19,22 @@ public class Personal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_personal")
-    private Long idPersonal;
+    Long idPersonal;
 
-    private String name;
+    String name;
 
-    @Column(name = "phone", length = 20, unique = true)
-    private String phone;
+    String phone;
 
-    @Column(name = "address", length = 255)
-    private  String address;
+    String email;
+
+    String address;
 
     @OneToMany(mappedBy = "personal")
-    private Set<Order> orderSet;
+    Set<Order> orderSet;
 
     @ManyToOne
     @JoinColumn(name = "position_id", nullable = false)
-    private Position position;
+    Position position;
 
     @ManyToMany
     @JoinTable(
@@ -42,4 +42,10 @@ public class Personal {
             joinColumns = @JoinColumn(name = "personal_id"),
             inverseJoinColumns = @JoinColumn(name = "graphiks_id"))
     Set<Graphic> graphicSet;
+
+    public Personal(String name, String phone, String address) {
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+    }
 }

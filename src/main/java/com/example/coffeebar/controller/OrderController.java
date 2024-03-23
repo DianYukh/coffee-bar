@@ -1,9 +1,6 @@
 package com.example.coffeebar.controller;
 
-import com.example.coffeebar.entity.Client;
-import com.example.coffeebar.entity.Drink;
-import com.example.coffeebar.entity.Order;
-import com.example.coffeebar.entity.Personal;
+import com.example.coffeebar.entity.*;
 import com.example.coffeebar.service.ClientService;
 import com.example.coffeebar.service.MenuService;
 import com.example.coffeebar.service.OrderService;
@@ -94,19 +91,52 @@ public class OrderController {
     }
 
 
-//    @GetMapping("/order/updateDrink/{id_drink}/{id_order}")
-//    public String addDrinkToOrder(@PathVariable("id_drink") Long id_drink,
-//                                  @PathVariable("id_order") Long id_order) {
-//        Drink drink = menuService.getDrinkById(id_drink);
-//        Order order = orderService.findById(id_order);
-//        Set<Drink> drinkSet = order.getDrinkSet();
-//        drinkSet.add(drink);
-//        order.setDrinkSet(drinkSet);
-//        orderService.save(order);
-//
-//        Long id_client = order.getClient().getIdClient();
-//        Long id_personal = order.getPersonal().getIdPersonal();
-//        id_order = order.getIdOrder();
-//        return "redirect:/order/add?id_client=" + id_client + "&id_personal=" + id_personal + "&id_order=" + id_order;
-//    }
+    @GetMapping("/order/updateDrink/{id_drink}/{id_order}")
+    public String addDrinkToOrder(@PathVariable("id_drink") Long id_drink,
+                                  @PathVariable("id_order") Long id_order,
+                                  Model model) {
+        Drink drink = menuService.getDrinkById(id_drink);
+        Order order = orderService.findById(id_order);
+        Set<Drink> drinkSet = order.getDrinkSet();
+        drinkSet.add(drink);
+        order.setDrinkSet(drinkSet);
+        orderService.save(order);
+
+
+
+        Long id_client = order.getClient().getIdClient();
+        Long id_personal = order.getPersonal().getIdPersonal();
+        id_order = order.getIdOrder();
+
+        int countDrinks = drinkSet.size();
+
+        model.addAttribute("countDrinks", countDrinks);
+
+        return "redirect:/order/add?id_client=" + id_client + "&id_personal=" + id_personal + "&id_order=" + id_order;
+    }
+
+    @GetMapping("/order/updateDesert/{id_desert}/{id_order}")
+    public String addDesertToOrder(@PathVariable("id_desert") Long id_desert,
+                                  @PathVariable("id_order") Long id_order,
+                                   Model model){
+        Desert desert = menuService.getDesertById(id_desert);
+        Order order = orderService.findById(id_order);
+
+        Set<Desert> desertSet = order.getDesertSet();
+        desertSet.add(desert);
+        order.setDesertSet(desertSet);
+        orderService.save(order);
+
+
+        Long id_client = order.getClient().getIdClient();
+        Long id_personal = order.getPersonal().getIdPersonal();
+        id_order = order.getIdOrder();
+
+        int countDeserts = desertSet.size();
+
+        model.addAttribute("countDrinks", countDeserts);
+        return "redirect:/order/add?id_client=" + id_client + "&id_personal=" + id_personal + "&id_order=" + id_order;
+    }
+
+
 }

@@ -38,4 +38,8 @@ public class Drink {
     @ManyToMany(mappedBy = "drinkSet")
     Set<Order> orderSet;
 
+    @ManyToOne
+    @JoinColumn(name = "image_id", nullable = false)
+    private Image image;
+
 }

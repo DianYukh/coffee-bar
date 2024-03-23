@@ -93,5 +93,11 @@ public class MenuService {
         return desertRepository.findByNameEn(name);
 
     }
+    public Drink getDrinkById(Long idDrink) {
+        return drinkRepository.findById(idDrink).orElse(null);
+    }
+    public Desert getDesertById(Long idDesert) {
+        return desertRepository.findById(idDesert).orElse(null);
+    }
 
 }

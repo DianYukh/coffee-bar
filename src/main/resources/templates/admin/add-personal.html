@@ -6,18 +6,28 @@
 </head>
 <body>
 
+
+<h1 th:inline="text">Hello <span th:remove="tag" th:authentication="name">thymeleaf</span>!</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+
 <h2 style="color: red" th:if="${err}" th:text="${err}"></h2>
 
-<form action="/personal/add" method="post" th:object="${personal}">
+<form th:action="@{/personal/add}" method="post" th:object="${personal}">
 
     <input type="text" th:field="*{idPersonal}" hidden="hidden"> <br>
     <input type="text" th:field="*{name}" placeholder="name"> <br>
     <input type="tel" th:field="*{phone}" placeholder="phone"><br>
     <input type="text" th:field="*{address}" placeholder="address"><br>
+    <input type="text" name="username" placeholder="username"><br>
+    <input type="email" name="email" placeholder="email"><br>
+    <input type="text" name="password" placeholder="password"><br>
 
     <select name="id_position" id="position">
         <option value="">-</option>
-        <option th:each="position: ${positions}" th:value="${position.getIdPosition()}" th:text="${position.getName()}"></option>
+        <option th:each="position: ${positions}" th:value="${position.getIdPosition()}"
+                th:text="${position.getName()}"></option>
     </select>
 
     <br>

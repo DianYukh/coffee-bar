@@ -35,4 +35,9 @@ public class Desert {
     @ManyToMany(mappedBy = "desertSet")
     Set<Order> orderSet;
 
+
+    @ManyToOne
+    @JoinColumn(name = "image_id", nullable = false)
+    private Image image;
+
 }

@@ -47,10 +47,10 @@ public class ClientController {
         model.addAttribute("client", clientById);
         return "add-client";
     }
-    @GetMapping("/client/delete/{idClient}")
-    public String delete(@PathVariable Long idClient) {
-       clientService.deleteClientById(idClient);
-        return "redirect:/client/all";
-    }
+//    @GetMapping("/client/delete/{idClient}")
+//    public String delete(@PathVariable Long idClient) {
+//       clientService.deleteClientById(idClient);
+//        return "redirect:/client/all";
+//    }
 
 }
