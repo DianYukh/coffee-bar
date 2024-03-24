@@ -31,7 +31,7 @@ public class ClientService {
     }
 
     public Client findById(Long idClient) {
-        return clientRepository.findById(idClient).orElse(new Client());
+        return clientRepository.findClientByIdClient(idClient);
     }
     
     public void deleteClientById(Long idClient) {

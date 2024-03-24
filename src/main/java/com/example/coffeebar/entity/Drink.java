@@ -42,4 +42,11 @@ public class Drink {
     @JoinColumn(name = "image_id", nullable = false)
     private Image image;
 
+    public Drink(Integer idDrink, String nameUa, String nameEn, BigDecimal price, Set<Order> orderSet) {
+        this.idDrink = idDrink;
+        this.nameUa = nameUa;
+        this.nameEn = nameEn;
+        this.price = price;
+        this.orderSet = orderSet;
+    }
 }

@@ -29,11 +29,11 @@ public class MenuService {
 
 
     public List<Drink> getAllDrinks() {
-        return drinkRepository.findAll();
+        return drinkRepository.findAllDrinks();
     }
 
     public List<Desert> getAllDeserts() {
-        return desertRepository.findAll();
+        return desertRepository.findAllDeserts();
     }
 
     public void addDrink(Drink drink) {
@@ -94,10 +94,10 @@ public class MenuService {
 
     }
     public Drink getDrinkById(Long idDrink) {
-        return drinkRepository.findById(idDrink).orElse(null);
+        return drinkRepository.findDrinkByIdDrink(idDrink).orElse(null);
     }
     public Desert getDesertById(Long idDesert) {
-        return desertRepository.findById(idDesert).orElse(null);
+        return desertRepository.findDesertByIdDesert(idDesert).orElse(null);
     }
 
 }
