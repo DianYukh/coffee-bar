@@ -27,4 +27,9 @@ public class ImageService {
     public Image getImageToDrink(Drink byIdDrink) {
         return null;
     }
+
+    public Image getImageToDesert(Drink byIdDesert) {
+        return null;
+    }
+
 }

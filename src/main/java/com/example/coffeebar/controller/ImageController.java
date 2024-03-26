@@ -36,7 +36,15 @@ public class ImageController {
     }
 
 
-
+    @GetMapping("/image/desert/{id}")
+    @ResponseBody
+    public ResponseEntity<byte[]> getDesertImage(@PathVariable Long id) {
+        Image image = menuService.findByIdDesert(id).getImage();
+        if (image == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(image.getContent());
+    }
 
 
 

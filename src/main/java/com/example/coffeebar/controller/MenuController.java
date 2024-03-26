@@ -71,7 +71,17 @@ public class MenuController {
     }
 
     @PostMapping("/desert/add")
-    public String addDesert(@ModelAttribute Desert desert) {
+    public String addDesert(@ModelAttribute Desert desert,
+                           @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
+        if (file != null) {
+            com.example.coffeebar.entity.Image image = new Image();
+            image.setName(file.getOriginalFilename());
+            image.setContentType(file.getContentType());
+            image.setContent(file.getBytes());
+            imageService.save(image);
+            desert.setImage(image);
+        }
+
         menuService.saveDesert(desert);
         return "redirect:/menu";
     }

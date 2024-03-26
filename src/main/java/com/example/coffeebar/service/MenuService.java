@@ -57,11 +57,11 @@ public class MenuService {
     }
 
     public Drink findByIdDrink(Long idDrink) {
-        return drinkRepository.findById(idDrink).orElse(new Drink());
+        return drinkRepository.findDrinkByIdDrink(idDrink).orElse(new Drink());
     }
 
     public Desert findByIdDesert(Long idDesert) {
-        return desertRepository.findById(idDesert).orElse(new Desert());
+        return desertRepository.findDesertByIdDesert(idDesert).orElse(new Desert());
     }
 
     public void deleteByIdDrink(Long idDrink) {

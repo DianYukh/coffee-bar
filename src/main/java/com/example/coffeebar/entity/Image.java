@@ -36,5 +36,5 @@ public class Image {
     private Set<Drink> drinkSet;
 
     @OneToMany(mappedBy = "image")
-    private Set<Drink> desertSet;
+    private Set<Desert> desertSet;
 }

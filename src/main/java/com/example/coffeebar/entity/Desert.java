@@ -40,4 +40,6 @@ public class Desert {
     @JoinColumn(name = "image_id", nullable = false)
     private Image image;
 
+
+
 }

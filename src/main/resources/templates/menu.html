@@ -64,6 +64,7 @@
         <th>Delete</th>
     </tr>
     <tr th:each="desert: ${deserts}">
+        <td><img th:src="@{image/desert/{id}(id=${desert.getIdDesert()})}" alt="desert img" width="100"></td>
         <td th:text="${desert.getNameUa()}"></td>
         <td th:text="${desert.getNameEn()}"></td>
         <td th:text="${desert.getPrice()}"></td>
