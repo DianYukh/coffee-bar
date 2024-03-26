@@ -64,9 +64,9 @@ public class OrderController {
             @RequestParam(name = "id_order", required = false) Long id_order,
             Model model) {
 
-        System.out.println("id_client = " + id_client);
-        System.out.println("id_personal = " + id_personal);
-        System.out.println("id_order = " + id_order);
+//        System.out.println("id_client = " + id_client);
+//        System.out.println("id_personal = " + id_personal);
+//        System.out.println("id_order = " + id_order);
         Order order;
 
         if (id_order != null) {
@@ -82,13 +82,23 @@ public class OrderController {
 
             orderService.save(order);
         }
+
+//        int countDrinks = order.getDrinkSet().size();
+//        int countDeserts = order.getDesertSet().size();
+
         model.addAttribute("order", order);
         model.addAttribute("drinks", menuService.getAllDrinks());
         model.addAttribute("deserts", menuService.getAllDeserts());
         model.addAttribute("personal", personalService.getAllPersonal());
 
+//        model.addAttribute("countDrinks", countDrinks);
+//        model.addAttribute("countDeserts", countDeserts);
+//        model.addAttribute("countAll", countDrinks + countDeserts);
+
         return "add-order";
     }
+
+
 
 
     @GetMapping("/order/updateDrink/{id_drink}/{id_order}")
@@ -102,15 +112,9 @@ public class OrderController {
         order.setDrinkSet(drinkSet);
         orderService.save(order);
 
-
-
         Long id_client = order.getClient().getIdClient();
         Long id_personal = order.getPersonal().getIdPersonal();
         id_order = order.getIdOrder();
-
-        int countDrinks = drinkSet.size();
-
-        model.addAttribute("countDrinks", countDrinks);
 
         return "redirect:/order/add?id_client=" + id_client + "&id_personal=" + id_personal + "&id_order=" + id_order;
     }
@@ -127,16 +131,49 @@ public class OrderController {
         order.setDesertSet(desertSet);
         orderService.save(order);
 
+        Long id_client = order.getClient().getIdClient();
+        Long id_personal = order.getPersonal().getIdPersonal();
+        id_order = order.getIdOrder();
+
+        return "redirect:/order/add?id_client=" + id_client + "&id_personal=" + id_personal + "&id_order=" + id_order;
+    }
+
+
+    @GetMapping("/order/deleteDesert/{id_desert}/{id_order}")
+    public String deleteDesertFromOrder(@PathVariable("id_desert") Long id_desert,
+                                        @PathVariable("id_order") Long id_order,
+                                        Model model) {
+        Desert desert = menuService.getDesertById(id_desert);
+        Order order = orderService.findById(id_order);
+
+        Set<Desert> desertSet = order.getDesertSet();
+        desertSet.remove(desert);
+        order.setDesertSet(desertSet);
+        orderService.save(order);
 
         Long id_client = order.getClient().getIdClient();
         Long id_personal = order.getPersonal().getIdPersonal();
         id_order = order.getIdOrder();
 
-        int countDeserts = desertSet.size();
-
-        model.addAttribute("countDrinks", countDeserts);
         return "redirect:/order/add?id_client=" + id_client + "&id_personal=" + id_personal + "&id_order=" + id_order;
     }
 
+    @GetMapping("/order/deleteDrink/{id_drink}/{id_order}")
+    public String deleteDrinkFromOrder(@PathVariable("id_drink") Long id_drink,
+                                       @PathVariable("id_order") Long id_order,
+                                       Model model) {
+        Drink drink = menuService.getDrinkById(id_drink);
+        Order order = orderService.findById(id_order);
 
+        Set<Drink> drinkSet = order.getDrinkSet();
+        drinkSet.remove(drink);
+        order.setDrinkSet(drinkSet);
+        orderService.save(order);
+
+        Long id_client = order.getClient().getIdClient();
+        Long id_personal = order.getPersonal().getIdPersonal();
+        id_order = order.getIdOrder();
+
+        return "redirect:/order/add?id_client=" + id_client + "&id_personal=" + id_personal + "&id_order=" + id_order;
+    }
 }

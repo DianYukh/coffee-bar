@@ -33,5 +33,12 @@ public class OrderService {
         return orderRepository.findById(idOrder).get();
     }
 
+    public void deleteDrinkByIdDrink(Order order){
+        if (order != null) {
+            orderRepository.delete(order);
+        } else {
+            System.out.println("Order is empty");
+        }
+    }
 
 }

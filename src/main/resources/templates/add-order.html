@@ -33,7 +33,7 @@
 
             <td><a th:href="@{/order/updateDrink/{id_drink}/{id_order}(id_drink=${drink.getIdDrink()},id_order=${order.getIdOrder()})}">Add drink to order</a></td>
 
-            <td><a th:href="@{/order/deleteDreink/{id}(id=${drink.getIdDrink()})}">Delete drink</a></td>
+            <td><a th:href="@{/order/deleteDrink/{id_drink}/{id_order}(id_drink=${drink.getIdDrink()},id_order=${order.getIdOrder()})}">Delete drink</a></td>
         </tr>
 </table>
 
@@ -56,7 +56,7 @@
         <td><a th:href="@{/order/updateDesert/{id_desert}/{id_order}(id_desert=${desert.getIdDesert()}, id_order = ${order.getIdOrder()})}">Add desert to order</a></td>
 
 
-        <td><a th:href="@{/order/deleteDesert/{id}(id=${desert.getIdDesert()})}">Delete desert from order</a></td>
+        <td><a th:href="@{/order/deleteDesert/{id_desert}/{id_order}(id_desert=${desert.getIdDesert()}, id_order = ${order.getIdOrder()})}">Delete desert from order</a></td>
     </tr>
 </table>
 <br>
@@ -80,8 +80,10 @@
     </tr>
 
 </table>
-<p>Кількість напоїв: <span th:text="${countDrinks}"></span></p>
-<p>Кількість десертів: <span th:text="${countDeserts}"></span></p>
+
+<!--<tr>Кількість напоїв: <td th:text="${countDrinks}"></td></tr><br>-->
+<!--<tr>Кількість десертів:<td th:text="${countDeserts}"></td></tr><br>-->
+<!--<tr>Всього:<td th:text="${countAll}"></td></tr>-->
 
 
 
