@@ -7,7 +7,16 @@
 <body>
 
 
-<form action="/client/add" method="post" th:object="${client}">
+
+<h1 th:inline="text">Hello <span th:remove="tag" th:authentication="name">admin/save client</span>!</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+
+<h2 style="color: red" th:if="${err}" th:text="${err}"></h2>
+
+
+<form th:action="@{/templates/client/add}" method="post" th:object="${client}">
 
     <input type="text" th:field="*{idClient}" hidden="hidden"> <br>
     <input type="text" th:field="*{name}" placeholder="name"> <br>
@@ -15,6 +24,10 @@
     <input type="text" th:field="*{address}" placeholder="address"><br>
     <input type="date" th:field="*{birthday}" placeholder="birthday"><br>
     <input type="number" th:field="*{discount}" placeholder="discount"><br>
+
+    <input type="text" name="username" placeholder="username"><br>
+    <input type="email" name="email" placeholder="email"><br>
+    <input type="text" name="password" placeholder="password"><br>
 
     <label th:if="${client.idClient == null}">
         <input type="submit" value="Add client">

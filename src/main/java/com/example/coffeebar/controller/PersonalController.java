@@ -39,6 +39,9 @@ public class PersonalController {
         return "personals";
     }
 
+
+
+
     @GetMapping("/personal/add")
     public String add(Model model) {
         model.addAttribute("personal", new Personal());
@@ -95,6 +98,19 @@ public class PersonalController {
         }
         return "index";
     }
+    @GetMapping("/personal/information/{idPersonal}")
+    public String getPersonalById(@PathVariable String idPersonal,Model model) {
+        Long id = Long.parseLong(idPersonal);
+        Personal personal = personalService.findById(id);
+        if (personal != null) {
+            model.addAttribute("personal", personal);
+            return "personal/personal-info";
+        } else{
+            return "redirect:/personal/all";
+        }
+    }
+
+
 
 
     @GetMapping("/personal/graphic/add")
@@ -150,9 +166,20 @@ public class PersonalController {
         Personal personalById = personalService.findById(idPersonal);
         model.addAttribute("personal", personalById);
         model.addAttribute("positions", personalService.getAllPositions());
-        return "add-personal";
+        return "admin/add-personal";
     }
 
+    @GetMapping("/personal")
+    public String personalPanel(){
+        return "personal/home-page-personal";
+    }
+
+    @GetMapping("/personal/home")
+    public String homePersonal(Model model) {
+        List<Personal> personals = personalService.getAllPersonal();
+        model.addAttribute("personal", personals);
+        return "personal/home-page-personal";
+    }
 
 
 }

@@ -1,8 +1,10 @@
 package com.example.coffeebar.service;
 
+import com.example.coffeebar.entity.Client;
 import com.example.coffeebar.entity.ERole;
 import com.example.coffeebar.entity.Role;
 import com.example.coffeebar.entity.User;
+import com.example.coffeebar.repository.ClientRepository;
 import com.example.coffeebar.repository.RoleRepository;
 import com.example.coffeebar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +22,14 @@ public class UserService {
 
     private final RoleRepository roleRepository;
 
-
+private final ClientRepository clientRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, ClientRepository clientRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.clientRepository = clientRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -49,7 +52,7 @@ public class UserService {
             Role role = roleRepository.findRoleByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RoleNotFoundException("Role not found"));
             saveUser.setRoles(new HashSet<>(List.of(role)));
-            userRepository.save(saveUser);
+            saveUser = userRepository.save(saveUser);
             return saveUser;
         }
         return user;

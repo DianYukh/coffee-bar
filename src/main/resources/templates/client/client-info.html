@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Client Information</title>
+</head>
+<body>
+
+<h1>Client Information</h1>
+
+
+
+
+<div>
+    Name: <span th:text="${client.getName()}"></span><br>
+    Phone: <span th:text="${client.getPhone()}"></span><br>
+    Birthday: <span th:text="${client.getBirthday()}"></span><br>
+    Address: <span th:text="${client.getAddress()}"></span><br>
+    Discount: <span th:text="${client.getDiscount()}"></span><br>
+
+
+</div>
+<br>
+<a href="/client/all">Back to All Personals</a>
+
+
+
+
+
+
+
+</body>
+</html>

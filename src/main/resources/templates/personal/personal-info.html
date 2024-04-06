@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Info</title>
+</head>
+<body>
+
+<h1>Personal Information</h1>
+
+
+
+
+<div>
+    Name: <span th:text="${personal.getName()}"></span><br>
+    Phone: <span th:text="${personal.getPhone()}"></span><br>
+    Email: <span th:text="${personal.getEmail()}"></span><br>
+    Address: <span th:text="${personal.getAddress()}"></span><br>
+    Position: <span th:text="${personal.getPosition().getName()}"></span><br>
+</div>
+<br>
+<a href="/personal/all">Back to All Personals</a>
+
+
+
+
+</body>
+</html>

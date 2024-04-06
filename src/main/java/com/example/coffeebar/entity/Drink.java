@@ -39,7 +39,7 @@ public class Drink {
     Set<Order> orderSet;
 
     @ManyToOne
-    @JoinColumn(name = "image_id", nullable = false)
+    @JoinColumn(name = "image_id")
     private Image image;
 
     public Drink(Integer idDrink, String nameUa, String nameEn, BigDecimal price, Set<Order> orderSet) {

@@ -36,6 +36,7 @@
         <th>Name</th>
         <th>Position</th>
         <th>Phone</th>
+        <th>Email</th>
         <th>Address</th>
         <th>Update</th>
     </tr>
@@ -43,11 +44,14 @@
         <td th:text="${personal.getName()}"></td>
         <td th:text="${personal.getPosition().getName()}"></td>
         <td th:text="${personal.getPhone()}"></td>
+        <td th:text="${personal.getEmail()}"></td>
         <td th:text="${personal.getAddress()}"></td>
 
         <td><a th:href="@{/personal/update/{id}(id=${personal.getIdPersonal()})}">Update</a></td>
+       <td> <a th:href="@{/personal/information/{idPersonal}(idPersonal=${personal.idPersonal})}"> Personal Page</a></td>
     </tr>
 </table>
+
 
 </body>
 </html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+<head>
+<head>
+    <meta charset="UTF-8">
+    <title>Home page Personals</title>
+</head>
+<body>
+
+<h1>Welcome!</h1>
+
+
+
+
+    <ul>
+        <li th:each="personal : ${personals}">
+            <a th:href="@{/personal/information/{idPersonal}(idPersonal=${personal.idPersonal})}" th:text="${personal.name}"></a>
+            <span th:text="${personal.idPersonal}"></span>
+            <span th:text="${personal.name}"></span>
+        </li>
+        <li><a href="/personal/graphic/add">Graphics</a></li>
+        <li><a href="/menu"> Menu </a></li>
+
+    </ul>
+
+
+
+</body>
+</html>
