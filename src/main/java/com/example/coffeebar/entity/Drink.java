@@ -1,6 +1,8 @@
 package com.example.coffeebar.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
@@ -24,11 +26,13 @@ public class Drink {
     private Integer idDrink;
 
     @Basic
-    @Column(name = "name_ua", nullable = true, length = 255)
+    @Column(name = "name_ua")
+    @NotEmpty(message = "Поле nameUa не може бути порожнім")
     private String nameUa;
 
     @Basic
-    @Column(name = "name_en", nullable = true, length = 255)
+    @Column(name = "name_en")
+    @NotEmpty(message = "Поле nameEn не може бути порожнім")
     private String nameEn;
 
     @Basic
@@ -36,7 +40,7 @@ public class Drink {
     private BigDecimal price;
 
     @ManyToMany(mappedBy = "drinkSet")
-    Set<Order> orderSet;
+    private Set<Order> orderSet;
 
     @ManyToOne
     @JoinColumn(name = "image_id")

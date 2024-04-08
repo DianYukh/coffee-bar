@@ -6,9 +6,11 @@ import com.example.coffeebar.entity.Image;
 import com.example.coffeebar.entity.Personal;
 import com.example.coffeebar.service.ImageService;
 import com.example.coffeebar.service.MenuService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,10 +50,13 @@ public class MenuController {
         model.addAttribute("drink", new Drink());
         return "admin/add-drink";
     }
-
     @PostMapping("/drink/add")
-    public String addDrink(@ModelAttribute Drink drink,
+    public String addDrink(@Valid @ModelAttribute Drink drink, BindingResult bindingResult,
                            @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
+        if(bindingResult.hasErrors()){
+            return "admin/add-drink";
+        }
+
         if (file != null) {
             com.example.coffeebar.entity.Image image = new Image();
             image.setName(file.getOriginalFilename());
@@ -71,8 +76,11 @@ public class MenuController {
     }
 
     @PostMapping("/desert/add")
-    public String addDesert(@ModelAttribute Desert desert,
+    public String addDesert(@Valid @ModelAttribute Desert desert,  BindingResult bindingResult,
                            @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
+        if(bindingResult.hasErrors()){
+            return "admin/add-desert";
+        }
         if (file != null) {
             com.example.coffeebar.entity.Image image = new Image();
             image.setName(file.getOriginalFilename());

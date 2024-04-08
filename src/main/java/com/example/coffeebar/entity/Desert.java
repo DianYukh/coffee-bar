@@ -1,6 +1,7 @@
 package com.example.coffeebar.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
@@ -23,9 +24,13 @@ public class Desert {
 
     @Basic
     @Column(name = "name_ua", nullable = true, length = 255)
+    @NotEmpty(message = "Поле nameUa не може бути порожнім")
     private String nameEn;
+
+
     @Basic
     @Column(name = "name_en", nullable = true, length = 255)
+    @NotEmpty(message = "Поле nameUa не може бути порожнім")
     private String nameUa;
 
     @Basic

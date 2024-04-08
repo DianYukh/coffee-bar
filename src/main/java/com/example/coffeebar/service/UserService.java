@@ -1,11 +1,9 @@
 package com.example.coffeebar.service;
 
-import com.example.coffeebar.entity.Client;
-import com.example.coffeebar.entity.ERole;
-import com.example.coffeebar.entity.Role;
-import com.example.coffeebar.entity.User;
+import com.example.coffeebar.entity.*;
 import com.example.coffeebar.repository.ClientRepository;
 import com.example.coffeebar.repository.RoleRepository;
+import com.example.coffeebar.repository.TokenRepository;
 import com.example.coffeebar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,14 +20,16 @@ public class UserService {
 
     private final RoleRepository roleRepository;
 
-private final ClientRepository clientRepository;
+
+    private final TokenRepository tokenRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
+
     @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, ClientRepository clientRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, VerificationToken verificationToken, TokenRepository tokenRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.clientRepository = clientRepository;
+        this.tokenRepository = tokenRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -58,7 +58,12 @@ private final ClientRepository clientRepository;
         return user;
     }
 
-
+    public User saveRegisteredUser(User user) {
+        if (user != null) {
+            return userRepository.save(user);
+        }
+        return null;
+    }
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email).orElse(null);
         //.orElseThrow(() -> new UsernameNotFoundException("User vs email " + email + " not found"));
@@ -67,5 +72,37 @@ private final ClientRepository clientRepository;
 
     public User findUserByUsername(String principalName) {
         return userRepository.findUserByUsername(principalName).orElse(null);
+    }
+
+    public void createVerificationToken(User user, String token) {
+        VerificationToken verificationToken = new VerificationToken(token, user.getId());
+        tokenRepository.save(verificationToken);
+    }
+
+
+    public User getUserByToken(String token) {
+        return userRepository.findUserById(tokenRepository.findVerificationTokenByToken(token).getUserId()).get();
+    }
+
+
+    public VerificationToken getVerificationToken(String token) {
+        return tokenRepository.findVerificationTokenByToken(token);
+    }
+
+
+    public VerificationToken getTokenByUserId(Long userId) {
+        return tokenRepository.findVerificationTokenByUserId(userId);
+    }
+
+    public User findUserById(Long userId) {
+        return userRepository.findUserById(userId).get();
+    }
+
+    public User saveUserPassword(User user) {
+        if (user != null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            return userRepository.save(user);
+        }
+        return null;
     }
 }

@@ -32,6 +32,7 @@ public class User implements UserDetails {
     String username;
     String email;
     String password;
+    boolean confirm;
 
     public User(String name, String username, String email, String password) {
         this.name = name;

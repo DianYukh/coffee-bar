@@ -1,11 +1,14 @@
 package com.example.coffeebar.service;
 
+import com.example.coffeebar.entity.User;
 import com.example.coffeebar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
@@ -27,6 +30,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println("email = " + email);
+        Optional<User> userByEmail = userRepository.findUserByEmail(email);
+        System.out.println("user username = " + userByEmail.get().getUsername());
+        System.out.println("user Email = " + userByEmail.get().getEmail());
         return userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username = " + email + " not found"));
     }
