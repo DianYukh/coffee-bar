@@ -96,7 +96,7 @@ public class PersonalController {
                 userService.adminSave(newUser);
             }
         }
-        return "index";
+        return "index2";
     }
     @GetMapping("/personal/information/{idPersonal}")
     public String getPersonalById(@PathVariable String idPersonal,Model model) {

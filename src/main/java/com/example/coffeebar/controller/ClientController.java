@@ -72,7 +72,7 @@ public class ClientController {
                 userService.adminSave(newUser);
             }
         }
-        return "index";
+        return "index2";
 
     }
     @GetMapping("/client/update/{id}")

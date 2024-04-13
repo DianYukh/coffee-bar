@@ -22,7 +22,7 @@ public class Drink {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_drinks", nullable = false)
+    @Column(name = "id_drink", nullable = false)
     private Integer idDrink;
 
     @Basic
@@ -46,11 +46,11 @@ public class Drink {
     @JoinColumn(name = "image_id")
     private Image image;
 
-    public Drink(Integer idDrink, String nameUa, String nameEn, BigDecimal price, Set<Order> orderSet) {
-        this.idDrink = idDrink;
-        this.nameUa = nameUa;
-        this.nameEn = nameEn;
-        this.price = price;
-        this.orderSet = orderSet;
-    }
+//    public Drink(Integer idDrink, String nameUa, String nameEn, BigDecimal price, Set<Order> orderSet) {
+//        this.idDrink = idDrink;
+//        this.nameUa = nameUa;
+//        this.nameEn = nameEn;
+//        this.price = price;
+//        this.orderSet = orderSet;
+//    }
 }

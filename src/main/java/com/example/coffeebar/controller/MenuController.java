@@ -45,6 +45,13 @@ public class MenuController {
         return "menu";
     }
 
+    @GetMapping("/mainMenu")
+    public String getMainMenu(Model model) {
+        model.addAttribute("drinks", menuService.getAllDrinks());
+        model.addAttribute("deserts", menuService.getAllDeserts());
+        return "mainMenu";
+    }
+
     @GetMapping("/drink/add")
     public String addDrink(Model model) {
         model.addAttribute("drink", new Drink());
@@ -199,11 +206,18 @@ public class MenuController {
         model.addAttribute("deserts", deserts);
         model.addAttribute("selectedDrinks", selectedDrinks);
         model.addAttribute("selectedDeserts", selectedDeserts);
+        model.addAttribute("selected", num);
         return "menu";
     }
 
-
-
+@GetMapping("/home")
+    public  String getHomePage(){
+        return "index2";
+}
+    @GetMapping("/contact")
+    public  String getContact(){
+        return "contact";
+    }
 
 
 }

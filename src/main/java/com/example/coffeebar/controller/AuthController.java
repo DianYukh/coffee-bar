@@ -42,7 +42,7 @@ public class AuthController {
                 model.addAttribute("user", userByUsername);
             }
         }
-        return "index";
+        return "index2";
     }
 
 
@@ -55,7 +55,7 @@ public class AuthController {
     @GetMapping("/registration")
     public String reg(Model model) {
         model.addAttribute("user", new User());
-        return "registration";
+        return "registrationOld";
     }
 
 

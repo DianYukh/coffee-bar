@@ -53,4 +53,13 @@ public class MyMailSender {
         email.setText(msg + " " + "http://localhost:8080" + confirmURL);
         mailSender.send(email);
     }
+
+    public void sendMail(String name, String mail, String subject, String message) {
+        SimpleMailMessage email = new SimpleMailMessage();
+        email.setTo("testingprogram@ukr.net");
+        email.setFrom(mail);
+        email.setSubject(subject);
+        email.setText("From: " + name + " " + message);
+        mailSender.send(email);
+    }
 }
